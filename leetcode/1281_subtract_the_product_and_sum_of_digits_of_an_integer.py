@@ -31,4 +31,11 @@ def testSPS(input_and_output_integers):
 
 
 def subtractProductAndSum( n: int) -> int:
-  return n
+  stringified_digits = str(n)
+  sum = 0
+  product = 1
+  for string_digit in stringified_digits:
+    sum += int(string_digit)
+    product *= int(string_digit)
+
+  return product - sum
