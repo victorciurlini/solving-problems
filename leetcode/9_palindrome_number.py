@@ -27,17 +27,9 @@ def test_palindrome_number(input_and_output):
 
 
 def isPalindrome(x: int) -> bool:
-  if x < 0:
-    return False
-  elif x < 10:
-    return True
-
   stringified_digits = str(x)
-  for index, digit in enumerate(stringified_digits):
-    if index >= len(stringified_digits)/2:
-      return True
-    if stringified_digits[index] != stringified_digits[-1 - index]:
-      return False
+  reversed_digits = stringified_digits[::-1]
+  return stringified_digits == reversed_digits
     
 
   
