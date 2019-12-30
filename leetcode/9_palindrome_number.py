@@ -18,7 +18,7 @@ Explanation: Reads 01 from right to left. Therefore it is not a palindrome.
 '''
 import pytest
 
-@pytest.mark.parametrize('input_and_output', [(121, True), (-121, False)])
+@pytest.mark.parametrize('input_and_output', [(121, True), (-121, False), (11, True), (1, True), (10, False)])
 def test_palindrome_number(input_and_output):
   input_integer = input_and_output[0]
   expected_output = input_and_output[1]
@@ -27,4 +27,17 @@ def test_palindrome_number(input_and_output):
 
 
 def isPalindrome(x: int) -> bool:
-  return  False
+  if x < 0:
+    return False
+  elif x < 10:
+    return True
+
+  stringified_digits = str(x)
+  for index, digit in enumerate(stringified_digits):
+    if index >= len(stringified_digits)/2:
+      return True
+    if stringified_digits[index] != stringified_digits[-1 - index]:
+      return False
+    
+
+  
