@@ -83,7 +83,7 @@ import pytest
 def test_merge_sort_list(lists_of_sorted_lists_and_right_answer):
   list_of_sorted_lists = lists_of_sorted_lists_and_right_answer[0]
   right_answer = lists_of_sorted_lists_and_right_answer[1]
-  sorted_list = sort_lists(list_of_sorted_lists)
+  sorted_list = brute_force_sort_lists(list_of_sorted_lists)
   assert right_answer == sorted_list
 
 def sort_lists(list_of_sorted_lists):
@@ -91,4 +91,12 @@ def sort_lists(list_of_sorted_lists):
   for sublist in list_of_sorted_lists:
     for item in sublist:
       sorted_list.append(item)
+  return sorted_list
+
+def brute_force_sort_lists(list_of_sorted_lists):
+  sorted_list = []
+  for sublist in list_of_sorted_lists:
+    for item in sublist:
+      sorted_list.append(item)
+  sorted_list.sort()
   return sorted_list
