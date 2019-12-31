@@ -27,6 +27,7 @@ import pytest
 
 @pytest.mark.parametrize('input_and_output', [(20, 1), (100, 10), (1000, 262), (2000, 758), (738935, 609230)])
 def test_num_dup_digits_at_most_n(input_and_output):
+
   input_digit = input_and_output[0]
   expected_output = input_and_output[1]
   predicted_output = numDupDigitsAtMostN(input_digit)
@@ -35,8 +36,8 @@ def test_num_dup_digits_at_most_n(input_and_output):
 
 
 def numDupDigitsAtMostN(N: int) -> int:
-    list_counting = pre_calculation(N)
-    return list_counting[N]
+    number = smart_brute_force(N)
+    return number
 
 def has_duplicate(natural_number) -> bool:
     ''' :Params natural number
@@ -55,7 +56,49 @@ def has_duplicate(natural_number) -> bool:
         natural_number = natural_number//10
     return False
 
-def pre_calculation(value_to_count) -> list:
+def smart_brute_force(value_to_count: int) -> dict:
+    ''' :Params value_to_count as integer
+        :Returns list of how many duplicate numbers till the given index
+    '''
+    stringfied_digits = str(value_to_count)
+    number_of_digits = len(stringfied_digits)
+    start_number_to_count = 10**(number_of_digits-1) - 1
+    start_amount_to_count = start_number_to_count - combination_calculate( number_of_digits- 1)
+    duplicate_count = {}
+    duplicate_count[start_number_to_count] = start_amount_to_count
+    for i in range(start_number_to_count+1,value_to_count+1):
+        if has_duplicate(i):
+            duplicate_count[i] = 1 + duplicate_count[i-1]
+        else:
+            duplicate_count[i] = 0 + duplicate_count[i-1]
+    return  duplicate_count[value_to_count]
+
+
+def combination_calculate(number_of_digits: int) -> int: 
+    ''' :Params The number of digits
+        :Returns how many numbers with replicate digits this number of digits have
+    '''
+    amount_of_duplicate_numbers = 9
+    if number_of_digits > 1:
+        amount_of_duplicate_numbers += 9*9
+        if number_of_digits > 2:
+            amount_of_duplicate_numbers += 9*9*8
+            if number_of_digits > 3:
+                amount_of_duplicate_numbers += 9*9*8*7
+                if number_of_digits > 4:
+                    amount_of_duplicate_numbers += 9*9*8*7*6
+                    if number_of_digits > 5:
+                        amount_of_duplicate_numbers += 9*9*8*7*6*5
+                        if number_of_digits > 6:
+                            amount_of_duplicate_numbers += 9*9*8*7*6*5*4
+                            if number_of_digits > 7:
+                                amount_of_duplicate_numbers += 9*9*8*7*6*5*4*3
+                                if number_of_digits > 8:
+                                    amount_of_duplicate_numbers += 9*9*8*7*6*5*4*3*2
+
+    return amount_of_duplicate_numbers
+
+def pre_calculation(value_to_count) -> None:
     ''' :Params value_to_count as integer
         :Returns list of how many duplicate numbers till the given index
     '''
@@ -67,4 +110,4 @@ def pre_calculation(value_to_count) -> list:
             duplicate_count.append( 1 + duplicate_count[i-1])
         else:
             duplicate_count.append( 0 + duplicate_count[i-1])
-    
+
