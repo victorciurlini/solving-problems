@@ -26,6 +26,9 @@ Constraints:
 1 <= nums.length <= 500
 1 <= nums[i] <= 10^5
 '''
+import pytest
+from typing import List # Need to import this so we can use List[int] in args
+
 @pytest.mark.parametrize('input_and_output', [([12,345,2,6,7896], 2), ([555,901,482,1771], 1)])
 def test_num_dup_digits_at_most_n(input_and_output):
     duplicate_count = {}
@@ -36,5 +39,5 @@ def test_num_dup_digits_at_most_n(input_and_output):
     assert predicted_output == expected_output
 
 
-  def findNumbers(nums: List[int]) -> int:
-    return nums[0]
+def findNumbers(nums: List[int]) -> int:
+    return sum([len(str(number))%2 == 0 for number in nums])
