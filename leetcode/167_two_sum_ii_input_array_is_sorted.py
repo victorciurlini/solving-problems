@@ -15,6 +15,7 @@ Explanation: The sum of 2 and 7 is 9. Therefore index1 = 1, index2 = 2.
 '''
 import pytest
 from typing import List # Need to import this so we can use List[int] in args
+from collections import OrderedDict # Using orderdDicts to remove duplicates but preserve order
 @pytest.mark.parametrize('input_and_output', [(([2,7,11,15], 9), [1,2]), (([2,7,11,15], 22), [2,4]), (([0,0,3,4], 0), [1,2])])
 def test_num_dup_digits_at_most_n(input_and_output):
     duplicate_count = {}
@@ -26,11 +27,18 @@ def test_num_dup_digits_at_most_n(input_and_output):
     assert predicted_output == expected_output
 
 def twoSum(numbers: List[int], target: int) -> List[int]:
-    for i, number in enumerate(numbers):
-        for j, second_number in enumerate(numbers[i+1:]):
-            if number + second_number == target:
-                return [i+1, j+i+2]
-            if number + second_number > target:
-                break
-
+    small_number_index = 0
+    big_number_index = len(numbers)-1
+    while(True):
+        ''' As it's garanteed it'll find a valid sum for target.
+        We'll look till find something'''
+        summation = numbers[small_number_index] +  numbers[big_number_index]
+        if summation == target:
+            return [small_number_index+1, big_number_index+1]
+        elif summation > target:
+            '''If it's bigger, then we have to look for a smaller number to sum'''
+            big_number_index -= 1
+        else:
+            ''' If it's smaller then we have to look for a bigger number'''
+            small_number_index += 1
 
