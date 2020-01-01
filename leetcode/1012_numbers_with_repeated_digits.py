@@ -50,23 +50,22 @@ def numDupDigitsAtMostN(N: int) -> int:
     '''
     digits = [int(d) for d in str(N)]
     num_digits = len(digits)
-    if num_digits >= 2:
-        number_of_non_duplicate_numbers = 0
-        for k in range(num_digits - 1):
-            number_of_non_duplicate_numbers += 9 * incomplete_fatorial(9, k)
-        number_of_non_duplicate_numbers += (digits[0] - 1) * incomplete_fatorial(9, num_digits - 1)
-        selected = {digits[0]}
-        idx = 1
-        for d in digits[1:]:
-            idx += 1
-            num_choices = d - sum(x < d for x in selected)
-            number_of_non_duplicate_numbers += num_choices * incomplete_fatorial(10 - idx, num_digits - idx)
-            if d in selected:
-                break
-            selected.add(d)
-        else:
-            number_of_non_duplicate_numbers += 1
+    if num_digits < 2:
+        return 0
+    number_of_non_duplicate_numbers = 0
+    for k in range(num_digits - 1):
+        number_of_non_duplicate_numbers += 9 * incomplete_fatorial(9, k)
+    number_of_non_duplicate_numbers += (digits[0] - 1) * incomplete_fatorial(9, num_digits - 1)
+    selected = {digits[0]}
+    idx = 1
+    for d in digits[1:]:
+        idx += 1
+        num_choices = d - sum(x < d for x in selected)
+        number_of_non_duplicate_numbers += num_choices * incomplete_fatorial(10 - idx, num_digits - idx)
+        if d in selected:
+            break
+        selected.add(d)
     else:
-        number_of_non_duplicate_numbers = N
+        number_of_non_duplicate_numbers += 1
 
-    return N + number_of_non_duplicate_numbers
+    return N - number_of_non_duplicate_numbers
