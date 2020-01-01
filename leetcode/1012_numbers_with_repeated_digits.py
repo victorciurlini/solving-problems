@@ -24,87 +24,49 @@ Note:
 1 <= N <= 10^9
 '''
 import pytest
-duplicate_count = {}
+
 @pytest.mark.parametrize('input_and_output', [(20, 1), (21, 1), (100, 10), (1000, 262), (2000, 758), (738935, 609230)])
 def test_num_dup_digits_at_most_n(input_and_output):
-
+    duplicate_count = {}
     input_digit = input_and_output[0]
     expected_output = input_and_output[1]
     predicted_output = numDupDigitsAtMostN(input_digit)
 
     assert predicted_output == expected_output
 
-@pytest.mark.parametrize('input_and_output', [(1, 9), (2, 90), (3, 738)])
-def test_combination_calculate_non_duplicate(input_and_output):
-
-    input_digit = input_and_output[0]
-    expected_output = input_and_output[1]
-    predicted_output = combination_calculate_non_duplicate(input_digit)
-
-    assert predicted_output == expected_output
+def incomplete_fatorial(start_number: int,number_of_loops: int) -> int:
+    ''' :Params starting_number, number_of_loops
+        :Returns Their incomplete fatorial
+    '''
+    total_value = 1
+    for i in range(0, number_of_loops):
+        total_value *= start_number-i
+    return total_value
+    
 
 def numDupDigitsAtMostN(N: int) -> int:
-    number = smart_brute_force(N)
-    return number
-
-def has_duplicate(natural_number) -> bool:
-    ''' :Params natural number
-        :Returns True if input has any repeated digit
-                or False if not
+    ''' :Params Number to count to
+        :Returns How many numbers with duplicates there are before the number to count
     '''
-    stringified_natural_number = str(natural_number)
-    digits_collected = {}
-    for digit in stringified_natural_number:
-        if digit in digits_collected:
-            return True
+    digits = [int(d) for d in str(N)]
+    num_digits = len(digits)
+    if num_digits >= 2:
+        number_of_non_duplicate_numbers = 0
+        for k in range(num_digits - 1):
+            number_of_non_duplicate_numbers += 9 * incomplete_fatorial(9, k)
+        number_of_non_duplicate_numbers += (digits[0] - 1) * incomplete_fatorial(9, num_digits - 1)
+        selected = {digits[0]}
+        idx = 1
+        for d in digits[1:]:
+            idx += 1
+            num_choices = d - sum(x < d for x in selected)
+            number_of_non_duplicate_numbers += num_choices * incomplete_fatorial(10 - idx, num_digits - idx)
+            if d in selected:
+                break
+            selected.add(d)
         else:
-            digits_collected[digit] = 1
-    return False
+            number_of_non_duplicate_numbers += 1
+    else:
+        number_of_non_duplicate_numbers = N
 
-def smart_brute_force(value_to_count: int) -> dict:
-    ''' :Params value_to_count as integer
-        :Returns list of how many duplicate numbers till the given index
-    '''
-    stringfied_digits = str(value_to_count)
-    number_of_digits = len(stringfied_digits)
-    start_number_to_count = 10**(number_of_digits-1) - 1
-    start_amount_to_count = start_number_to_count - combination_calculate_non_duplicate( number_of_digits- 1)
-    global duplicate_count
-    if not start_number_to_count in duplicate_count:
-        duplicate_count[start_number_to_count] = start_amount_to_count
-    else: 
-        start_number_to_count = max(duplicate_count.keys())
-        print(start_amount_to_count)
-    for i in range(start_number_to_count+1,value_to_count+1):
-        if has_duplicate(i):
-            duplicate_count[i] = 1 + duplicate_count[i-1]
-        else:
-            duplicate_count[i] = 0 + duplicate_count[i-1]
-    return    duplicate_count[value_to_count]
-
-
-def combination_calculate_non_duplicate(number_of_digits: int) -> int: 
-    ''' :Params The number of digits
-        :Returns how many numbers without duplicate digits exists with this number of digits
-    '''
-    amount_of_duplicate_numbers = 9
-    combination_possible = 9
-    for i in range(1, number_of_digits):
-    # For instance for 2 digits we got 9+9*9
-        combination_possible *= (10-i)
-        amount_of_duplicate_numbers += combination_possible
-    return amount_of_duplicate_numbers
-
-def pre_calculation(value_to_count) -> None:
-      ''' :Params value_to_count as integer
-          :Returns list of how many duplicate numbers till the given index
-      '''
-      global duplicate_count
-      duplicate_count = []
-      duplicate_count.append(0)
-      for i in range(1, value_to_count+1):
-          if has_duplicate(i):
-              duplicate_count.append( 1 + duplicate_count[i-1])
-          else:
-              duplicate_count.append( 0 + duplicate_count[i-1])
-
+    return N + number_of_non_duplicate_numbers
