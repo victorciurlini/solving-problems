@@ -15,7 +15,7 @@ Explanation: The sum of 2 and 7 is 9. Therefore index1 = 1, index2 = 2.
 '''
 import pytest
 from typing import List # Need to import this so we can use List[int] in args
-@pytest.mark.parametrize('input_and_output', [(([2,7,11,15], 9), [1,2]), (([2,7,11,15], 18), [2,3])])
+@pytest.mark.parametrize('input_and_output', [(([2,7,11,15], 9), [1,2]), (([2,7,11,15], 22), [2,4]), (([0,0,3,4], 0), [1,2])])
 def test_num_dup_digits_at_most_n(input_and_output):
     duplicate_count = {}
     input_list = input_and_output[0][0]
@@ -26,4 +26,11 @@ def test_num_dup_digits_at_most_n(input_and_output):
     assert predicted_output == expected_output
 
 def twoSum(numbers: List[int], target: int) -> List[int]:
-    return [0,0]
+    for i, number in enumerate(numbers):
+        for j, second_number in enumerate(numbers[i+1:]):
+            if number + second_number == target:
+                return [i+1, j+i+2]
+            if number + second_number > target:
+                break
+
+
