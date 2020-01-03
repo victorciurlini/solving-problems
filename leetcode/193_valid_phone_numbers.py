@@ -19,6 +19,7 @@ Your script should output the following valid phone numbers:
 '''
 import pytest
 from unittest import mock
+import re
 
 
 @pytest.mark.parametrize('input_and_output', [
@@ -30,14 +31,14 @@ def test_check_possibility(capsys, input_and_output):
     mocked_open_function = mock.mock_open(read_data=mocked_text_content)
 
     with mock.patch("builtins.open", mocked_open_function):
-        with open("any_string") as f:
-            print(f.read())
-    readAndPrintPhoneNumbers()
+        with open('text_file.txt') as f:
+            file_content = f.readlines()
+            for line in file_content:
+                if re.search(r'(\d{3}-\d{3}-\d{4}|\(\d{3}\) \d{3}-\d{4})', line):
+                    print(line)
+
     captured_output = capsys.readouterr().out
     assert captured_output == expected_output
 
 
-def readAndPrintPhoneNumbers(text_file='file.txt') -> None:
-    with mock.patch("builtins.open", mocked_open_function):
-        with open("any_string") as f:
-                print(f.read())
+    
