@@ -22,6 +22,7 @@ from typing import List  # Need to import this so we can use List[int] in args
     (([4, 2, 1]), False),
     (([2, 5, 4, 3]), False),
     (([3, 4, 2, 3]), False),
+    (([1, 1, 1]), True),
     (([1, 0, 3, 4]), True)])
 def test_check_possibility(input_and_output):
     input_list = input_and_output[0]
@@ -33,9 +34,16 @@ def test_check_possibility(input_and_output):
 
 def checkPossibility(nums: List[int]) -> bool:
     descrecement_count = 2
-    for i, number in enumerate(nums[:-1]):
-        if number >= nums[i+1]:
+    for i, _ in enumerate(nums[:-1]):
+        if nums[i] > nums[i+1]:
             descrecement_count -= 1
+            if i == 0:
+                nums[i] = nums[i+1]
+            else:
+                if nums[i-1] <= nums[i+1]:
+                    nums[i] = nums[i+1]
+                else:
+                    nums[i+1] = nums[i]
         if descrecement_count == 0:
             return False
     return True
