@@ -21,8 +21,9 @@ from typing import List  # Need to import this so we can use List[int] in args
     (([4, 2, 3]), True),
     (([4, 2, 1]), False),
     (([2, 5, 4, 3]), False),
+    (([3, 4, 2, 3]), False),
     (([1, 0, 3, 4]), True)])
-def test_num_dup_digits_at_most_n(input_and_output):
+def test_check_possibility(input_and_output):
     input_list = input_and_output[0]
     expected_output = input_and_output[1]
     predicted_output = checkPossibility(input_list)
@@ -31,4 +32,10 @@ def test_num_dup_digits_at_most_n(input_and_output):
 
 
 def checkPossibility(nums: List[int]) -> bool:
-    return False
+    descrecement_count = 2
+    for i, number in enumerate(nums[:-1]):
+        if number >= nums[i+1]:
+            descrecement_count -= 1
+        if descrecement_count == 0:
+            return False
+    return True
