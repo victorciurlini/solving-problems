@@ -18,15 +18,26 @@ Your script should output the following valid phone numbers:
 (123) 456-7890
 '''
 import pytest
-import sys
-from typing import List  # Need to import this so we can use List[int] in args
+from unittest import mock
 
 
-def test_check_possibility(capsys):
+@pytest.mark.parametrize('input_and_output', [
+    ('987-123-4567\n123 456 7890\n(123) 456-7890',
+        '987-123-4567\n(123) 456-7890\n')])
+def test_check_possibility(capsys, input_and_output):
+    mocked_text_content = input_and_output[0]
+    expected_output = input_and_output[1]
+    mocked_open_function = mock.mock_open(read_data=mocked_text_content)
+
+    with mock.patch("builtins.open", mocked_open_function):
+        with open("any_string") as f:
+            print(f.read())
     readAndPrintPhoneNumbers()
-    captured = capsys.readouterr()
-    assert captured.out == 'Sua mãe\n'
+    captured_output = capsys.readouterr().out
+    assert captured_output == expected_output
 
 
 def readAndPrintPhoneNumbers(text_file='file.txt') -> None:
-    print("Sua mãe")
+    with mock.patch("builtins.open", mocked_open_function):
+        with open("any_string") as f:
+                print(f.read())
