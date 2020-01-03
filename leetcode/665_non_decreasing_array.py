@@ -33,6 +33,8 @@ def test_check_possibility(input_and_output):
 
 
 def checkPossibility(nums: List[int]) -> bool:
+    if len(nums) < 3:
+        return True
     descrecement_count = 2
     for i, _ in enumerate(nums[:-1]):
         if nums[i] > nums[i+1]:
