@@ -19,13 +19,13 @@ from typing import List
 @pytest.mark.parametrize('input_and_output', [
     (["h", "e", "l", "l", "o"], ["o", "l", "l", "e", "h"]),
     (["H", "a", "n", "n", "a", "h"], ["h", "a", "n", "n", "a", "H"])])
-def test_palindrome_number(input_and_output):
+def test_reverse_string(input_and_output):
     input_list_string = input_and_output[0]
     expected_output = input_and_output[1]
-    reverseString(input_list_string)
+    reverse_string(input_list_string)
     assert expected_output == input_list_string
 
-def reverseString(s: List[str]) -> None:
+def reverse_string(s: List[str]) -> None:
         """
         Do not return anything, modify s in-place instead
         """
