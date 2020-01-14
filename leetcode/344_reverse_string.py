@@ -29,8 +29,4 @@ def reverseString(s: List[str]) -> None:
         """
         Do not return anything, modify s in-place instead
         """
-        last_index = len(s)-1
-        for i in range((last_index)//2+1):
-            temp = s[i]
-            s[i] = s[last_index-i]
-            s[last_index-i] = temp
+        s.reverse()
