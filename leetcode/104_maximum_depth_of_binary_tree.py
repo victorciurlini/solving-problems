@@ -35,16 +35,17 @@ def test_palindrome_number(input_and_output):
 
 
 def max_depth(root: TreeNode) -> int:
-    if not root:
-        return 0
-    stack = [(root, 1)]
-    greater_path = 1
-    while(stack):
-        node, depth = stack.pop()
-        for next_node in [node.right, node.left]:
-            if next_node is None:
+    current_level = [root]
+    greater_path = 0
+    depth = 1
+    while current_level and root:
+        next_level = []
+        depth += 1
+        for next_node in current_level:
+            if next_node:
+                next_level.append(next_node)
+            else:
                 if greater_path < depth:
                     greater_path = depth
-            else:
-                stack.append((next_node, depth + 1))
+        current_level = next_level
     return greater_path
