@@ -3,8 +3,8 @@ Given an array nums, write a function to move all 0's to the end of it while mai
 
 Example:
 
-Input: [0,1,0,3,12]
-Output: [1,3,12,0,0]
+Input: [0, 1, 0, 3, 12]
+Output: [1, 3, 12, 0, 0]
 Note:
 
 You must do this in-place without making a copy of the array.
@@ -14,9 +14,9 @@ import pytest
 from typing import List
 
 @pytest.mark.parametrize('input_and_output', [
-    ([0,1,0,3,12], [1,3,12,0,0]),
-    ([0,1,0,3,0], [1,3,0,0,0]),
-    ([0,0,1], [1,0,0])
+    ([0, 1, 0, 3, 12], [1, 3, 12, 0, 0]),
+    ([0, 1, 0, 3, 0], [1, 3, 0, 0, 0]),
+    ([0, 0, 1], [1, 0, 0])
     ])
 def test_move_zeroes(input_and_output):
     input_list = input_and_output[0]
