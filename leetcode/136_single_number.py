@@ -26,14 +26,7 @@ def test_single_number(input_and_output):
 
 
 def singleNumber(nums: List[int]) -> int:
-    open_set = set()
-    closed_set = set()
+    nums.sort()
+    last_num = None
     for num in nums:
-        if num in closed_set:
-            continue
-        if num in open_set:
-            closed_set.add(num)
-            open_set.remove(num)
-        else:
-            open_set.add(num)
-    return open_set.pop()
+        if num
