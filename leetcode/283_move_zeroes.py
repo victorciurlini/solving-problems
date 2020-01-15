@@ -28,7 +28,13 @@ def moveZeroes(nums: List[int]) -> None:
     """
     Do not return anything, modify nums in-place instead.
     """
+    zero_indexes = []
     for i in range(len(nums)):
         if nums[i] == 0:
             nums.append(0)
-            nums.pop(i)
+            zero_indexes.append(i)
+    index_decrement = 0
+    for index in zero_indexes:
+        nums.pop(index + index_decrement)
+        index_decrement -= 1
+            
