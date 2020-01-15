@@ -16,6 +16,7 @@ Follow up:
 What if the inputs contain unicode characters? How would you adapt your solution to such case?
 '''
 import pytest
+from collections import Counter
 
 @pytest.mark.parametrize('input_and_output', [
     (["anagram", "nagaram"], True),
@@ -34,17 +35,6 @@ def test_is_anagram(input_and_output):
 def isAnagram(s: str, t: str) -> bool:
     if len(s) != len(t):
         return False
-    letters_count = dict()
-    for character in s:
-        if character in letters_count:
-            letters_count[character] += 1
-        else:
-            letters_count[character] = 1
-    for character in t:
-        if character in letters_count:
-            letters_count[character] -= 1
-            if letters_count[character] == 0:
-                del letters_count[character]
-        else:
-            return False
-    return True
+    s_letters_count = Counter(s)
+    t_letters_count = Counter(t)
+    return s_letters_count == t_letters_count
