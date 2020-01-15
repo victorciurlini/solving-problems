@@ -19,7 +19,8 @@ import pytest
 
 @pytest.mark.parametrize('input_and_output', [
     (["anagram", "nagaram"], True),
-    (["rat", "car"], False)
+    (["rat", "car"], False),
+    (["ab", "a"], False)
     ])
 def test_is_anagram(input_and_output):
     s_input_string = input_and_output[0][0]
@@ -30,4 +31,17 @@ def test_is_anagram(input_and_output):
 
 
 def isAnagram(s: str, t: str) -> bool:
-    return False
+    letters_count = dict()
+    for character in s:
+        if character in letters_count:
+            letters_count[character] += 1
+        else:
+            letters_count[character] = 1
+    for character in t:
+        if character in letters_count:
+            letters_count[character] -= 1
+            if letters_count[character] < 0:
+                del letters_count[character]
+        else:
+            return False
+    return True
