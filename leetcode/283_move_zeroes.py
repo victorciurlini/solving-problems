@@ -15,7 +15,8 @@ from typing import List
 
 @pytest.mark.parametrize('input_and_output', [
     ([0,1,0,3,12], [1,3,12,0,0]),
-    ([0,1,0,3,0], [1,3,0,0,0])
+    ([0,1,0,3,0], [1,3,0,0,0]),
+    ([0,0,1], [1,0,0])
     ])
 def test_move_zeroes(input_and_output):
     input_list = input_and_output[0]
@@ -27,4 +28,7 @@ def moveZeroes(nums: List[int]) -> None:
     """
     Do not return anything, modify nums in-place instead.
     """
-    return False
+    for i in range(len(nums)):
+        if nums[i] == 0:
+            nums.append(0)
+            nums.pop(i)
