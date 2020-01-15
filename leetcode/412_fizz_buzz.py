@@ -64,14 +64,5 @@ def test_fizz_buzz(input_and_output):
     assert expected_output == predicted_output
 
 def fizzBuzz(n: int) -> List[str]:
-    fizz_buzz_list = []
-    for i in range(1, n+1):
-        word = ""
-        if i%3 == 0:
-            word += "Fizz"
-        if i%5 == 0:
-            word += "Buzz"
-        if len(word) == 0:
-            word = str(i)
-        fizz_buzz_list.append(word)
-    return fizz_buzz_list
+    return ["Fizz" * (not i % 3) + "Buzz" * (not i % 5) or str(i)
+            for i in range(1, n+1)]
