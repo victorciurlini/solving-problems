@@ -34,5 +34,5 @@ def majorityElement(nums: List[int]) -> int:
             hash_number_count[num] += 1
         else:
             hash_number_count[num] = 1
-    return max(hash_number_count)
+    return max(hash_number_count.keys(), key=(lambda k: hash_number_count[k]))
 
