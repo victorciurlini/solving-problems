@@ -5,15 +5,15 @@ Your function should return true if any value appears at least twice in the arra
 
 Example 1:
 
-Input: [1,2,3,1]
+Input: [1, 2, 3, 1]
 Output: true
 Example 2:
 
-Input: [1,2,3,4]
+Input: [1, 2, 3, 4]
 Output: false
 Example 3:
 
-Input: [1,1,1,3,3,4,3,2,4,2]
+Input: [1, 1, 1, 3, 3, 4, 3, 2, 4, 2]
 Output: true
 '''
 import pytest
@@ -21,9 +21,9 @@ from typing import List
 from collections import Counter
 
 @pytest.mark.parametrize('input_and_output', [
-    ([1,2,3,1], True),
-    ([1,2,3,4], False),
-    ([1,1,1,3,3,4,3,2,4,2], True)
+    ([1, 2, 3, 1], True),
+    ([1, 2, 3, 4], False),
+    ([1, 1, 1, 3, 3, 4, 3, 2, 4, 2], True)
     ])
 def test_contains_duplicate(input_and_output):
     input_list = input_and_output[0]
@@ -33,4 +33,10 @@ def test_contains_duplicate(input_and_output):
 
 
 def containsDuplicate(nums: List[int]) -> bool:
+    digits_count = dict()
+    for digit in nums:
+        if digit in digits_count:
+            return True
+        else:
+            digits_count[digit] = 1
     return False
