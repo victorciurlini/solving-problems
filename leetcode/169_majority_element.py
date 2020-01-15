@@ -18,7 +18,8 @@ from typing import List
 @pytest.mark.parametrize('input_and_output', [
     ([3, 2, 3], 3),
     ([2, 2, 1, 1, 1, 2, 2], 2),
-    ([3, 3, 4], 3)
+    ([3, 3, 4], 3),
+    ([1], 1)
     ])
 def test_move_zeroes(input_and_output):
     input_list = input_and_output[0]
@@ -28,11 +29,5 @@ def test_move_zeroes(input_and_output):
 
 
 def majorityElement(nums: List[int]) -> int:
-    hash_number_count = {}
-    for num in nums:
-        if num in hash_number_count:
-            hash_number_count[num] += 1
-        else:
-            hash_number_count[num] = 1
-    return max(hash_number_count.keys(), key=(lambda k: hash_number_count[k]))
-
+    nums.sort()
+    return nums[len(nums)//2]
