@@ -21,7 +21,7 @@ from typing import List
     ([3, 3, 4], 3),
     ([1], 1)
     ])
-def test_move_zeroes(input_and_output):
+def test_majority_element(input_and_output):
     input_list = input_and_output[0]
     expected_output = input_and_output[1]
     predicted_output = majorityElement(input_list)
