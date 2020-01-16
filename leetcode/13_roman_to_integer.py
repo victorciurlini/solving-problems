@@ -65,13 +65,13 @@ def romanToInt(s: str) -> int:
         "C": 100,
         "D": 500,
         "M": 1000}
-    num = 0
+    current_sum = 0
     last_value = 0
     for letter in s:
         actual_simbol_value = roman_simbols[letter]
         if actual_simbol_value > last_value:
-            num += actual_simbol_value - 2*last_value
+            current_sum -= last_value
         else:
-            num += actual_simbol_value
+            current_sum += last_value
         last_value = actual_simbol_value
-    return num
+    return last_value + current_sum
