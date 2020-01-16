@@ -66,6 +66,12 @@ def romanToInt(s: str) -> int:
         "D": 500,
         "M": 1000}
     num = 0
+    last_value = 0
     for letter in s:
-        num += roman_simbols[letter]
+        if roman_simbols[letter] > last_value:
+            num += roman_simbols[letter] - 2*last_value
+            last_value = roman_simbols[letter]
+        else:
+            last_value = roman_simbols[letter]
+            num += last_value
     return num
