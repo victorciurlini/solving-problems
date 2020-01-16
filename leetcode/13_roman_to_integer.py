@@ -68,10 +68,10 @@ def romanToInt(s: str) -> int:
     num = 0
     last_value = 0
     for letter in s:
-        if roman_simbols[letter] > last_value:
-            num += roman_simbols[letter] - 2*last_value
-            last_value = roman_simbols[letter]
+        actual_simbol_value = roman_simbols[letter]
+        if actual_simbol_value > last_value:
+            num += actual_simbol_value - 2*last_value
         else:
-            last_value = roman_simbols[letter]
-            num += last_value
+            num += actual_simbol_value
+        last_value = actual_simbol_value
     return num
