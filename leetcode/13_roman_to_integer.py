@@ -57,4 +57,15 @@ def test_roman_to_int(input_and_output):
 
 
 def romanToInt(s: str) -> int:
-    return False
+    roman_simbols = {
+        "I": 1,
+        "V": 5,
+        "X": 10,
+        "L": 50,
+        "C": 100,
+        "D": 500,
+        "M": 1000}
+    num = 0
+    for letter in s:
+        num += roman_simbols[letter]
+    return num
