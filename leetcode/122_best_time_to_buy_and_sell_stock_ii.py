@@ -39,4 +39,4 @@ def test_max_profit(input_and_output):
 
 
 def maxProfit(prices: List[int]) -> int:
-    return False
+    return sum(venda-compra for compra,venda in zip(prices,prices[1:])if venda>compra)
